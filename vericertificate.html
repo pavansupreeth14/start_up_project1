@@ -1,0 +1,1031 @@
+ <!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>DevStack Verification</title>
+
+<link rel="stylesheet"
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+
+
+/* ================= BODY ================= */
+
+body{
+
+    background:
+    linear-gradient(
+    135deg,
+    #fff5f5,
+    #ffe4e6
+    );
+
+    min-height:100vh;
+
+    overflow-x:hidden;
+
+    position:relative;
+}
+
+
+
+/* ================= RED LIGHT ================= */
+
+.mouse-light{
+
+    position:fixed;
+
+    width:350px;
+    height:350px;
+
+    background:
+    radial-gradient(circle,
+    rgba(255,0,80,0.18),
+    transparent 70%);
+
+    border-radius:50%;
+
+    pointer-events:none;
+
+    transform:translate(-50%,-50%);
+
+    z-index:-1;
+
+    filter:blur(18px);
+}
+
+
+
+/* ================= MAIN ================= */
+
+.main{
+
+    width:100%;
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:40px 5%;
+}
+
+
+
+/* ================= CARD ================= */
+
+.card{
+
+    width:100%;
+
+    max-width:760px;
+
+    background:
+    rgba(255,255,255,0.85);
+
+    backdrop-filter:blur(15px);
+
+    border-radius:28px;
+
+    padding:45px;
+
+    box-shadow:
+    0 18px 45px rgba(0,0,0,0.08);
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+
+
+/* TOP LINE */
+
+.card::before{
+
+    content:'';
+
+    position:absolute;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:6px;
+
+    background:
+    linear-gradient(
+    90deg,
+    #ff4d4d,
+    #ff0066
+    );
+}
+
+
+
+/* ================= BADGE ================= */
+
+.verify-badge{
+
+    width:fit-content;
+
+    margin:auto;
+
+    background:
+    linear-gradient(
+    135deg,
+    #ff4d4d,
+    #ff0066
+    );
+
+    color:white;
+
+    padding:10px 18px;
+
+    border-radius:14px;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    margin-bottom:20px;
+
+    box-shadow:
+    0 10px 25px rgba(255,77,77,0.25);
+
+    animation:pulse 2s infinite;
+}
+
+
+
+/* PULSE */
+
+@keyframes pulse{
+
+    0%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.05);
+    }
+
+    100%{
+        transform:scale(1);
+    }
+
+}
+
+
+
+/* ================= TITLE ================= */
+
+.title{
+
+    text-align:center;
+
+    font-size:42px;
+
+    color:#111827;
+
+    font-weight:700;
+
+    margin-bottom:12px;
+}
+
+
+
+/* ================= TEXT ================= */
+
+.text{
+
+    text-align:center;
+
+    color:#64748b;
+
+    line-height:1.8;
+
+    margin-bottom:35px;
+}
+
+
+
+/* ================= INPUT ================= */
+
+.input-box{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+}
+
+
+
+.input-box input{
+
+    width:100%;
+
+    padding:18px 20px;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:16px;
+
+    background:#f1f5f9;
+
+    font-size:16px;
+}
+
+
+
+/* ================= BUTTON ================= */
+
+.input-box button{
+
+    width:100%;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:16px;
+
+    background:
+    linear-gradient(
+    135deg,
+    #ff4d4d,
+    #ff0066
+    );
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+
+
+.input-box button:hover{
+
+    transform:
+    translateY(-4px);
+
+    box-shadow:
+    0 14px 30px rgba(255,0,80,0.25);
+}
+
+
+
+/* ================= RESULT ================= */
+
+#resultBox{
+
+    margin-top:30px;
+}
+
+
+
+/* ================= LOADING ================= */
+
+.loading-box{
+
+    background:#fff7f8;
+
+    padding:40px;
+
+    border-radius:24px;
+
+    text-align:center;
+
+    animation:fadeUp 0.5s ease;
+}
+
+
+
+/* LOADER */
+
+.loader{
+
+    width:70px;
+    height:70px;
+
+    border:7px solid #ffd6de;
+
+    border-top:7px solid #ff0066;
+
+    border-radius:50%;
+
+    margin:auto;
+
+    animation:spin 1s linear infinite;
+}
+
+
+
+/* SPIN */
+
+@keyframes spin{
+
+    100%{
+        transform:rotate(360deg);
+    }
+
+}
+
+
+
+/* LOADING TEXT */
+
+.loading-box h2{
+
+    margin-top:20px;
+
+    color:#ff0066;
+
+    font-size:22px;
+}
+
+
+
+/* ================= RESULT CARD ================= */
+
+.result-card{
+
+    background:#fff7f8;
+
+    border-radius:24px;
+
+    padding:30px;
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(2,1fr);
+
+    gap:18px;
+
+    animation:fadeUp 0.6s ease;
+}
+
+
+
+/* VERIFIED */
+
+.status{
+
+    grid-column:1/3;
+
+    background:#dcfce7;
+
+    color:#16a34a;
+
+    padding:16px;
+
+    border-radius:16px;
+
+    text-align:center;
+
+    font-size:20px;
+
+    font-weight:700;
+}
+
+
+
+/* INFO */
+
+.info{
+
+    background:white;
+
+    padding:22px;
+
+    border-radius:18px;
+
+    box-shadow:
+    0 5px 15px rgba(0,0,0,0.04);
+}
+
+
+
+.info h3{
+
+    color:#64748b;
+
+    font-size:14px;
+
+    margin-bottom:10px;
+}
+
+
+
+.info p{
+
+    font-size:18px;
+
+    font-weight:600;
+
+    color:#111827;
+}
+
+
+
+/* INVALID */
+
+.invalid{
+
+    background:#fef2f2;
+
+    color:#dc2626;
+
+    padding:22px;
+
+    border-radius:18px;
+
+    text-align:center;
+
+    font-size:20px;
+
+    font-weight:700;
+
+    animation:fadeUp 0.6s ease;
+}
+
+
+
+/* ================= ABOUT ================= */
+
+.about{
+
+    margin-top:45px;
+
+    background:#fff7f8;
+
+    border-radius:24px;
+
+    padding:35px;
+}
+
+
+
+.about h2{
+
+    font-size:30px;
+
+    margin-bottom:18px;
+
+    color:#111827;
+}
+
+
+
+.about p{
+
+    color:#64748b;
+
+    line-height:2;
+}
+
+
+
+/* ================= FOOTER ================= */
+
+.footer{
+
+    margin-top:40px;
+
+    padding-top:30px;
+
+    border-top:
+    1px solid #e2e8f0;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    flex-wrap:wrap;
+
+    gap:30px;
+}
+
+
+
+/* FOOTER */
+
+.footer-box h3{
+
+    margin-bottom:15px;
+
+    color:#111827;
+}
+
+
+
+.footer-box a{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    text-decoration:none;
+
+    color:#64748b;
+
+    margin-bottom:14px;
+
+    transition:0.3s;
+}
+
+
+
+.footer-box a:hover{
+
+    color:#ff0066;
+
+    transform:translateX(5px);
+}
+
+
+
+/* ICONS */
+
+.footer-box i{
+
+    font-size:24px;
+}
+
+
+
+.fa-linkedin{
+    color:#0077b5;
+}
+
+.fa-instagram{
+    color:#e1306c;
+}
+
+.fa-envelope{
+    color:#f59e0b;
+}
+
+
+
+/* ================= ANIMATION ================= */
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:
+        translateY(20px);
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+        translateY(0px);
+    }
+
+}
+
+
+
+/* ================= MOBILE ================= */
+
+@media(max-width:700px){
+
+    .card{
+        padding:30px;
+    }
+
+    .title{
+        font-size:32px;
+    }
+
+    .result-card{
+        grid-template-columns:1fr;
+    }
+
+    .status{
+        grid-column:1/2;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+
+<!-- RED LIGHT -->
+
+<div class="mouse-light"></div>
+
+
+
+<!-- MAIN -->
+
+<section class="main">
+
+<div class="card">
+
+
+
+<!-- BADGE -->
+
+<div class="verify-badge">
+
+Certificate Verification
+
+</div>
+
+
+
+<!-- TITLE -->
+
+<h1 class="title">
+
+Verify Your Certificate ✅
+
+</h1>
+
+
+
+<!-- TEXT -->
+
+<p class="text">
+
+Enter your verification ID to
+check internship certificate details.
+
+</p>
+
+
+
+<!-- INPUT -->
+
+<div class="input-box">
+
+<input
+type="text"
+id="certificateID"
+placeholder="Enter Verification ID">
+
+<button onclick=
+"verifyCertificate()">
+
+🔍 Verify Certificate
+
+</button>
+
+</div>
+
+
+
+<!-- RESULT -->
+
+<div id="resultBox"></div>
+
+
+
+<!-- ABOUT -->
+
+<div class="about">
+
+<h2>
+
+About &lt; DΞVSTACK /&gt; 
+
+</h2>
+
+<p>
+
+DevStack Internship Program helps students gain real-world industry experience through practical projects and weekly tasks. After successfully applying for the internship, students will receive their official Offer Letter within 24 hours via email.</p>
+
+  
+<p>During the 4-week internship program, students are required to complete all assigned tasks and project submissions on time. Once all tasks are successfully completed and verified by the *DevStack team* the Internship Completion Certificate will be sent to the student’s registered email within 24 hours.
+
+</p>
+
+</div>
+
+
+
+<!-- FOOTER -->
+
+<div class="footer">
+
+
+
+<div class="footer-box">
+
+<h3>Useful Links</h3>
+
+<a href="index.html">🏠︎ Home</a>
+<a href="index.html">📋 Internships</a>
+<a href="#">📞 Contact</a>
+
+</div>
+
+
+
+<div class="footer-box">
+
+<h3>Policies</h3>
+
+<a href="#">📄 Terms</a>
+<a href="#">🔒 Privacy</a>
+<a href="#">✅ Verification</a>
+
+</div>
+
+
+
+<div class="footer-box">
+
+<h3>Connect</h3>
+
+<a href="https://www.linkedin.com/company/devstack-technologies">
+<i class="fab fa-linkedin"></i>
+LinkedIn
+</a>
+
+<a href="#">
+<i class="fab fa-instagram"></i>
+Instagram
+</a>
+
+<a href="devstacktechnologies14@gmail.com">
+<i class="fas fa-envelope"></i>
+devstacktechnologies14@gmail.com
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+
+
+<script>
+
+
+// ================= RED LIGHT =================
+
+const mouseLight =
+document.querySelector(".mouse-light");
+
+document.addEventListener(
+"mousemove",
+(e)=>{
+
+    mouseLight.style.left =
+    e.clientX + "px";
+
+    mouseLight.style.top =
+    e.clientY + "px";
+
+});
+
+
+
+
+// ================= GOOGLE SHEET CSV =================
+
+const sheetURL =
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vSy-Fs5Q1CmMIc3METCkiiMIW-GRgPxX06qdam5m9CwR2NhXhQ9RHclnXNP3Y7G5zLGw5C8YmeDF5un/pub?output=csv";
+
+let certificateData = [];
+
+
+
+// FETCH CSV
+
+fetch(sheetURL)
+
+.then(response => response.text())
+
+.then(csvText => {
+
+    const rows =
+    csvText.split("\n");
+
+    for(let i=1; i<rows.length; i++){
+
+        const cols =
+        rows[i].split(",");
+
+        certificateData.push({
+
+            id:
+            cols[0]?.trim(),
+
+            name:
+            cols[1]?.trim(),
+
+            domain:
+            cols[2]?.trim(),
+
+            start:
+            cols[3]?.trim(),
+
+            end:
+            cols[4]?.trim()
+
+        });
+
+    }
+
+});
+
+
+
+
+// ================= VERIFY FUNCTION =================
+
+function verifyCertificate(){
+
+    const inputID =
+    document
+    .getElementById("certificateID")
+    .value
+    .trim();
+
+    const resultBox =
+    document
+    .getElementById("resultBox");
+
+
+
+    // LOADING FIRST
+
+    resultBox.innerHTML = `
+
+    <div class="loading-box">
+
+        <div class="loader"></div>
+
+        <h2>
+        Verifying ID...
+        </h2>
+
+    </div>
+
+    `;
+
+
+
+    // WAIT 3 SECONDS
+
+    setTimeout(()=>{
+
+        const student =
+        certificateData.find(
+        item => item.id === inputID
+        );
+
+
+
+        // VALID
+
+        if(student){
+
+            resultBox.innerHTML = `
+
+            <div class="result-card">
+
+                <div class="status">
+
+                    ✅ Certificate Verified
+
+                </div>
+
+
+
+                <div class="info">
+
+                    <h3>
+                    👤 Student Name
+                    </h3>
+
+                    <p>
+                    ${student.name}
+                    </p>
+
+                </div>
+
+
+
+                <div class="info">
+
+                    <h3>
+                    💻 Domain
+                    </h3>
+
+                    <p>
+                    ${student.domain}
+                    </p>
+
+                </div>
+
+
+
+                <div class="info">
+
+                    <h3>
+                    📅 Start Date
+                    </h3>
+
+                    <p>
+                    ${student.start}
+                    </p>
+
+                </div>
+
+
+
+                <div class="info">
+
+                    <h3>
+                    🏁 End Date
+                    </h3>
+
+                    <p>
+                    ${student.end}
+                    </p>
+
+                </div>
+
+            </div>
+
+            `;
+        }
+
+
+
+        // INVALID
+
+        else{
+
+            resultBox.innerHTML = `
+
+            <div class="invalid">
+
+                ❌ Invalid Verification ID
+
+            </div>
+
+            `;
+        }
+
+    },3000);
+
+}
+
+</script>
+
+</body>
+</html>
